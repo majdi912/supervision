@@ -1,2 +1,1 @@
-# hello friend
 # hello ngrok
