@@ -245,9 +245,9 @@ def ping(x1):
     serveur = smtplib.SMTP('smtp.gmail.com',
                            587)  ## Connexion au serveur sortant (en précisant son nom et son port)
     serveur.starttls()  ## Spécification de la sécurisation
-    serveur.login("fathitav44@gmail.com", "fahiachouradmin")  ## Authentification
+    serveur.login("", "")  ## Authentification
     message = ch   + '  are down'  ## Message à envoyer
-    serveur.sendmail("fathitav44@gmail.com", "fathitav44@gmail.com", message)  ## Envoie du message
+    serveur.sendmail("", "", message)  ## Envoie du message
     serveur.quit()  ## Déconnexion du serveur
 
     return JsonResponse('rsult'+y, safe=False)
@@ -274,9 +274,9 @@ def ping2(request):
     serveur = smtplib.SMTP('smtp.gmail.com',
                            587)  ## Connexion au serveur sortant (en précisant son nom et son port)
     serveur.starttls()  ## Spécification de la sécurisation
-    serveur.login("fathitav44@gmail.com", "fathiachouradmin")  ## Authentification
+    serveur.login("", "")  ## Authentification
     message = ch   + '  are down'  ## Message à envoyer
-    serveur.sendmail("fathitav44@gmail.com", "fathitav44@gmail.com", message)  ## Envoie du message
+    serveur.sendmail("", "", message)  ## Envoie du message
     serveur.quit()  ## Déconnexion du serveur
 
     return render(request,'ping.html',{'offline': offline})
