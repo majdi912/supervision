@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:14
+#    ports:
+#       - '5432:5432'
+    environment:
+       - "POSTGRES_PASSWORD=225anGI"
+       - "POSTGRES_USER=userprismaccess"
+       - "POSTGRES_DB=prismaccess"
+    volumes:
+      - ./database/postgres/docker-entrypoint-initdb:/docker-entrypoint-initdb.d/
+      - /mnt/disks/disk-docker-db/data:/var/lib/postgresql/data
+  backend-server:
+    image: gcr.io/civic-karma-345614/prismaccess-back:v1
+    container_name: api
+    volumes:
+      - ./data:/app
+      - /app/node_modules
+    environment:
+      - host=postgres
+      - port=5432
+      - password=225anGI
+      - user=userprismaccess
+      - database=prismaccess
+      - name=prismaccessdb
+      - connector=postgresql
+    restart: always
+    links:
+      - postgres
+    depends_on:
+      - postgres
+      - migration
+    ports:
+       - '80:3000'
+  migration:
+    image: gcr.io/civic-karma-345614/prismaccess-back:v1
+    command: ./wait-for-it/wait-for-it.sh postgres:5432 -- npm run migrate 
+    links:
+       - postgres
+    depends_on:
+       - postgres
