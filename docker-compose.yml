@@ -12,7 +12,7 @@ services:
       - ./database/postgres/docker-entrypoint-initdb:/docker-entrypoint-initdb.d/
       - /mnt/disks/disk-docker-db/data:/var/lib/postgresql/data
   backend-server:
-    image: gcr.io/civic-karma-345614/prismaccess-back:v1
+    image: gcr.io/civic-karma-345614/prismaccess-back:latest
     container_name: api
     volumes:
       - ./data:/app
@@ -34,7 +34,7 @@ services:
     ports:
        - '80:3000'
   migration:
-    image: gcr.io/civic-karma-345614/prismaccess-back:v1
+    image: gcr.io/civic-karma-345614/prismaccess-back:latest
     command: ./wait-for-it/wait-for-it.sh postgres:5432 -- npm run migrate 
     links:
        - postgres
